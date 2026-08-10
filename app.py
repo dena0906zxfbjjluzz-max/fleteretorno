@@ -228,7 +228,24 @@ div[data-testid="stSidebar"] .stRadio { display: none !important; }
   min-height: 2.75rem !important;
 }
 
+.sb-active-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  min-height: 2.55rem;
+  padding: 0.55rem 0.7rem;
+  margin: 0.08rem 0;
+  border-radius: 8px;
+  background: #2e2e2e;
+  color: #fafafa;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
 /* ===== Menú lateral = filas verticales tipo Supabase ===== */
+/* Nunca verde en el sidebar (el primary del theme pinta mal) */
 section[data-testid="stSidebar"] .stButton > button,
 section[data-testid="stSidebar"] button[data-testid="baseButton-secondary"],
 section[data-testid="stSidebar"] button[data-testid="baseButton-primary"],
@@ -255,28 +272,12 @@ div[data-testid="stSidebar"] button[data-testid="baseButton-primary"] {
   color: #a3a3a3 !important;
 }
 section[data-testid="stSidebar"] .stButton > button:hover,
-section[data-testid="stSidebar"] button[data-testid="baseButton-secondary"]:hover,
 div[data-testid="stSidebar"] .stButton > button:hover {
   background: #222 !important;
   background-color: #222 !important;
   color: #f5f5f5 !important;
   border: none !important;
 }
-/* Activo: gris redondeado (NO verde) */
-section[data-testid="stSidebar"] .stButton > button[kind="primary"],
-section[data-testid="stSidebar"] button[data-testid="baseButton-primary"],
-div[data-testid="stSidebar"] .stButton > button[kind="primary"],
-div[data-testid="stSidebar"] button[data-testid="baseButton-primary"] {
-  background: #2e2e2e !important;
-  background-color: #2e2e2e !important;
-  color: #fafafa !important;
-  border: none !important;
-  font-weight: 600 !important;
-  box-shadow: none !important;
-}
-/* Cerrar sesión: borde suave */
-section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] > div:last-child .stButton > button,
-div[data-testid="stSidebar"] [data-testid="stVerticalBlockBorderWrapper"]:last-child .stButton > button,
 section[data-testid="stSidebar"] div[data-testid="element-container"]:last-child .stButton > button {
   border: 1px solid #333 !important;
   justify-content: center !important;
@@ -549,11 +550,17 @@ for gi, group in enumerate(groups):
         st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
     for key, label in group:
         activo = st.session_state.seccion == key
-        if st.sidebar.button(
+        if activo:
+            # Fila activa gris (como Supabase) — sin botón primary verde
+            st.sidebar.markdown(
+                f'<div class="sb-active-row">{label}</div>',
+                unsafe_allow_html=True,
+            )
+        elif st.sidebar.button(
             label,
             key=f"nav_{st.session_state.rol}_{key}",
             use_container_width=True,
-            type="primary" if activo else "secondary",
+            type="secondary",
         ):
             st.session_state.seccion = key
             st.rerun()
