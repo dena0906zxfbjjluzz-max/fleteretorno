@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
+from urllib.parse import quote
 
 import folium
 import pandas as pd
@@ -37,6 +38,7 @@ def inject_styles() -> None:
         """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
 
 html, body, [class*="css"] {
   font-family: 'DM Sans', sans-serif;
@@ -168,48 +170,73 @@ div[data-testid="stForm"] {
 .fr-badge-go { background: rgba(33,150,243,0.18); color: #64B5F6; }
 
 .fr-page-head { margin: 0 0 1.15rem; }
-.fr-page-head h1 { margin: 0 !important; font-size: 2rem !important; }
-.fr-page-head p {
-  margin: 0.4rem 0 0;
-  color: #9AA69A;
-  font-size: 1.05rem;
-}
-
-section[data-testid="stSidebar"] {
-  min-width: 320px !important;
-  width: 320px !important;
+.fr-page-head h1 { margin: 0 !important;section[data-testid="stSidebar"] {
+  min-width: 280px !important;
+  width: 280px !important;
 }
 div[data-testid="stSidebar"] {
-  background: #101510 !important;
-  border-right: 1px solid rgba(150,193,31,0.12);
+  background: #171717 !important;
+  border-right: 1px solid #2a2a2a;
 }
 div[data-testid="stSidebar"] > div:first-child {
-  padding-top: 1rem;
-  padding-left: 0.35rem;
-  padding-right: 0.35rem;
+  padding-top: 0.85rem;
+  padding-left: 0.45rem;
+  padding-right: 0.45rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.35rem;
   color: #F2F5F0;
-  margin: 0.25rem 0 0.45rem;
+  margin: 0.15rem 0 0.25rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand span { color: #C8F52A; }
 .fr-side-user {
-  color: #A8B3A6;
-  font-size: 1.05rem;
-  margin: 0 0 1.1rem;
+  color: #8a8a8a;
+  font-size: 0.88rem;
+  margin: 0 0 0.85rem;
   font-weight: 500;
 }
 .fr-side-divider {
   height: 1px;
-  background: rgba(242,245,240,0.1);
-  margin: 0.75rem 0 1rem;
+  background: #2a2a2a;
+  margin: 0.55rem 0.35rem 0.65rem;
   border: 0;
 }
 
-/* Nav tipo app: botones grandes, sin radios */
+/* Nav estilo Supabase */
+.sb-nav { display: flex; flex-direction: column; gap: 0.15rem; margin: 0.15rem 0 0.5rem; }
+.sb-item {
+  display: flex !important;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  color: #a3a3a3 !important;
+  text-decoration: none !important;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.2;
+  border: none !important;
+  background: transparent;
+  transition: background .12s ease, color .12s ease;
+}
+.sb-item:hover {
+  background: #222 !important;
+  color: #f5f5f5 !important;
+}
+.sb-item.active {
+  background: #2e2e2e !important;
+  color: #fafafa !important;
+  font-weight: 600;
+}
+.sb-item .material-symbols-outlined {
+  font-size: 1.25rem !important;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  opacity: 0.92;
+}
+.sb-item.active .material-symbols-outlined { opacity: 1; }
+
 div[data-testid="stSidebar"] .stRadio { display: none !important; }
 
 .stButton > button[kind="primary"],
@@ -234,48 +261,31 @@ div[data-testid="stSidebar"] .stRadio { display: none !important; }
   min-height: 2.75rem !important;
 }
 
-/* Sidebar DESPUÉS del primary global (gana especificidad) */
+/* Logout en sidebar: outline discreto */
 section[data-testid="stSidebar"] .stButton > button,
 div[data-testid="stSidebar"] .stButton > button {
   width: 100% !important;
   justify-content: flex-start !important;
   text-align: left !important;
-  min-height: 3.5rem !important;
-  padding: 0.95rem 1.1rem !important;
-  font-size: 1.15rem !important;
-  font-weight: 600 !important;
-  border-radius: 12px !important;
-  margin: 0.18rem 0 !important;
+  min-height: 2.7rem !important;
+  padding: 0.65rem 0.75rem !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  margin: 0.15rem 0 !important;
   box-shadow: none !important;
-}
-section[data-testid="stSidebar"] .stButton > button[kind="secondary"],
-div[data-testid="stSidebar"] .stButton > button[kind="secondary"],
-section[data-testid="stSidebar"] button[data-testid="baseButton-secondary"],
-div[data-testid="stSidebar"] button[data-testid="baseButton-secondary"] {
   background: transparent !important;
-  color: #C8D0C6 !important;
-  border: 1px solid transparent !important;
+  color: #a3a3a3 !important;
+  border: 1px solid #333 !important;
 }
-section[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover,
-div[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover {
-  background: rgba(150,193,31,0.1) !important;
-  color: #F2F5F0 !important;
-  border-color: transparent !important;
+section[data-testid="stSidebar"] .stButton > button:hover,
+div[data-testid="stSidebar"] .stButton > button:hover {
+  background: #222 !important;
+  color: #f5f5f5 !important;
+  border-color: #444 !important;
 }
-section[data-testid="stSidebar"] .stButton > button[kind="primary"],
-div[data-testid="stSidebar"] .stButton > button[kind="primary"],
-section[data-testid="stSidebar"] button[data-testid="baseButton-primary"],
-div[data-testid="stSidebar"] button[data-testid="baseButton-primary"] {
-  background: rgba(150,193,31,0.18) !important;
-  color: #F2F5F0 !important;
-  border: 1px solid rgba(150,193,31,0.35) !important;
-  box-shadow: inset 4px 0 0 #96C11F !important;
-  font-weight: 700 !important;
-}
-/* Solo Cerrar sesión con borde */
-section[data-testid="stSidebar"] div[data-testid="element-container"]:last-of-type .stButton > button,
-div[data-testid="stSidebar"] div[data-testid="element-container"]:last-of-type .stButton > button {
-  border: 1px solid rgba(242,245,240,0.22) !important;
+
+tant;
   justify-content: center !important;
   text-align: center !important;
   margin-top: 0.45rem !important;
@@ -514,44 +524,58 @@ st.sidebar.markdown(
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
 
 if st.session_state.rol == "comerciante":
-    # (clave interna, etiqueta con figura tipo panel)
-    menu_items = [
-        ("Publicar carga", "▦  Publicar carga"),
-        ("Ofertas", "◎  Ofertas"),
-        ("Mapa", "▣  Mapa"),
-        ("Monitoreo", "◍  Monitoreo"),
-        ("Evidencia", "☰  Evidencia"),
+    # clave, icono Material, etiqueta  | grupos con None = divisor
+    menu_spec = [
+        ("Publicar carga", "inventory_2", "Publicar carga"),
+        ("Ofertas", "chat_bubble", "Ofertas"),
+        ("Mapa", "map", "Mapa"),
+        None,
+        ("Monitoreo", "sensors", "Monitoreo"),
+        ("Evidencia", "description", "Evidencia"),
     ]
 else:
-    menu_items = [
-        ("Mi perfil", "◉  Mi perfil"),
-        ("Cargas", "▦  Cargas"),
-        ("En ruta", "▣  En ruta"),
-        ("Validar", "◌  Validar"),
+    menu_spec = [
+        ("Mi perfil", "badge", "Mi perfil"),
+        ("Cargas", "local_shipping", "Cargas"),
+        None,
+        ("En ruta", "near_me", "En ruta"),
+        ("Validar", "verified_user", "Validar"),
     ]
 
-menu_keys = [k for k, _ in menu_items]
+menu_keys = [x[0] for x in menu_spec if x]
 if "seccion" not in st.session_state or st.session_state.seccion not in menu_keys:
     st.session_state.seccion = menu_keys[0]
 
-for key, label in menu_items:
-    activo = st.session_state.seccion == key
-    if st.sidebar.button(
-        label,
-        key=f"nav_{st.session_state.rol}_{key}",
-        use_container_width=True,
-        type="primary" if activo else "secondary",
-    ):
-        st.session_state.seccion = key
-        st.rerun()
+# Sync desde URL (?s=...)
+qp = st.query_params.get("s")
+if isinstance(qp, list):
+    qp = qp[0] if qp else None
+if qp and qp in menu_keys and qp != st.session_state.seccion:
+    st.session_state.seccion = qp
+
+html = ['<div class="sb-nav">']
+for item in menu_spec:
+    if item is None:
+        html.append('<hr class="fr-side-divider"/>')
+        continue
+    key, icon, label = item
+    cls = "sb-item active" if st.session_state.seccion == key else "sb-item"
+    html.append(
+        f'<a class="{cls}" href="?s={quote(key)}">'
+        f'<span class="material-symbols-outlined">{icon}</span>'
+        f'{label}</a>'
+    )
+html.append("</div>")
+st.sidebar.markdown("\n".join(html), unsafe_allow_html=True)
 
 seccion = st.session_state.seccion
 
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
-if st.sidebar.button("⏻  Cerrar sesión", key="btn_logout", use_container_width=True):
+if st.sidebar.button("Cerrar sesión", key="btn_logout", use_container_width=True):
     for k in ("autenticado", "usuario", "rol", "nombre_sesion", "seccion"):
         if k in st.session_state:
             st.session_state[k] = False if k == "autenticado" else ""
+    st.query_params.clear()
     st.rerun()
 
 # =====================================================================
