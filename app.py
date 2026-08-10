@@ -76,12 +76,12 @@ h3 { font-size: 1.2rem !important; }
   height: 72px;
   margin: 0 auto 1.15rem;
   border-radius: 20px;
-  background: linear-gradient(145deg, #96C11F 0%, #6F9A14 100%);
+  background: linear-gradient(145deg, #C8F52A 0%, #9ACC14 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  box-shadow: 0 12px 36px rgba(150,193,31,0.25);
+  box-shadow: 0 12px 36px rgba(200,245,42,0.28);
 }
 .fr-brand {
   font-size: 3.1rem;
@@ -90,7 +90,7 @@ h3 { font-size: 1.2rem !important; }
   margin: 0;
   line-height: 1.02;
 }
-.fr-brand span { color: #96C11F; }
+.fr-brand span { color: #C8F52A; }
 .fr-tag {
   margin: 0.85rem auto 0;
   color: #A8B3A6;
