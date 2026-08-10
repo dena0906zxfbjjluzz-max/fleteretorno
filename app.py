@@ -292,14 +292,48 @@ div[data-baseweb="input"] > div,
 div[data-baseweb="textarea"] > div,
 div[data-baseweb="base-input"] {
   border-radius: 14px !important;
-  min-height: 2.9rem !important;
+  min-height: 3.15rem !important;
 }
 label[data-testid="stWidgetLabel"] p {
   font-size: 1rem !important;
   font-weight: 600 !important;
 }
+label[data-testid="stWidgetLabel"] {
+  margin-bottom: 0.35rem !important;
+}
 div[data-testid="stCaption"] {
   font-size: 0.95rem !important;
+}
+
+/* Más aire entre campos para llenar datos con claridad */
+div[data-testid="stMain"] div[data-testid="stVerticalBlock"] > div[data-testid="element-container"],
+div[data-testid="stMain"] div[data-testid="stForm"] > div > div[data-testid="element-container"],
+section.main div[data-testid="stVerticalBlock"] > div[data-testid="element-container"] {
+  margin-bottom: 0.85rem !important;
+}
+div[data-testid="stForm"] {
+  padding-top: 0.35rem !important;
+}
+div[data-testid="stForm"] [data-testid="stTextInput"],
+div[data-testid="stForm"] [data-testid="stNumberInput"],
+div[data-testid="stForm"] [data-testid="stTextArea"],
+[data-testid="stTextInput"],
+[data-testid="stNumberInput"],
+[data-testid="stTextArea"],
+[data-testid="stSelectbox"] {
+  margin-bottom: 0.55rem !important;
+}
+[data-testid="stTextInput"] label,
+[data-testid="stNumberInput"] label,
+[data-testid="stTextArea"] label,
+[data-testid="stSelectbox"] label {
+  margin-bottom: 0.4rem !important;
+  padding-bottom: 0.1rem !important;
+}
+/* Hint "Press Enter..." más discreto / no apretado */
+[data-testid="InputInstructions"] {
+  margin-top: 0.25rem !important;
+  opacity: 0.55;
 }
 
 .fr-topbar {
