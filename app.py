@@ -176,85 +176,41 @@ div[data-testid="stForm"] {
 }
 
 section[data-testid="stSidebar"] {
-  min-width: 280px !important;
+  min-width: 320px !important;
+  width: 320px !important;
 }
 div[data-testid="stSidebar"] {
   background: #101510 !important;
   border-right: 1px solid rgba(150,193,31,0.12);
 }
 div[data-testid="stSidebar"] > div:first-child {
-  padding-top: 0.85rem;
+  padding-top: 1rem;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.45rem;
+  font-size: 1.7rem;
   color: #F2F5F0;
-  margin: 0.2rem 0 0.4rem;
+  margin: 0.25rem 0 0.45rem;
 }
-div[data-testid="stSidebar"] .fr-side-brand span { color: #96C11F; }
+div[data-testid="stSidebar"] .fr-side-brand span { color: #C8F52A; }
 .fr-side-user {
   color: #A8B3A6;
-  font-size: 0.95rem;
-  margin: 0 0 0.95rem;
+  font-size: 1.05rem;
+  margin: 0 0 1.1rem;
   font-weight: 500;
 }
 .fr-side-divider {
   height: 1px;
   background: rgba(242,245,240,0.1);
-  margin: 0.65rem 0 0.85rem;
+  margin: 0.75rem 0 1rem;
   border: 0;
 }
 
-div[data-testid="stSidebar"] div[role="radiogroup"] {
-  gap: 0.3rem !important;
-}
-div[data-testid="stSidebar"] div[role="radiogroup"] label {
-  background: transparent !important;
-  border-radius: 12px !important;
-  padding: 0.78rem 0.9rem !important;
-  margin: 0 !important;
-  border: 1px solid transparent !important;
-  align-items: center !important;
-}
-div[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-  background: rgba(150,193,31,0.06) !important;
-}
-div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-  background: rgba(150,193,31,0.16) !important;
-  border-color: rgba(150,193,31,0.4) !important;
-  box-shadow: inset 3px 0 0 #96C11F;
-}
-div[data-testid="stSidebar"] div[role="radiogroup"] label p,
-div[data-testid="stSidebar"] div[role="radiogroup"] label span {
-  font-size: 1.05rem !important;
-  font-weight: 500 !important;
-  color: #C8D0C6 !important;
-}
-div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
-div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) span {
-  color: #F2F5F0 !important;
-  font-weight: 700 !important;
-}
-div[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
-  display: none !important;
-}
-
-div[data-testid="stSidebar"] .stButton > button {
-  background: transparent !important;
-  color: #C8D0C6 !important;
-  border: 1px solid rgba(242,245,240,0.14) !important;
-  border-radius: 12px !important;
-  font-weight: 600 !important;
-  font-size: 1rem !important;
-  padding: 0.7rem 0.9rem !important;
-  margin-top: 0.45rem;
-}
-div[data-testid="stSidebar"] .stButton > button:hover {
-  background: rgba(150,193,31,0.08) !important;
-  color: #F2F5F0 !important;
-  border-color: rgba(150,193,31,0.35) !important;
-}
+/* Nav tipo app: botones grandes, sin radios */
+div[data-testid="stSidebar"] .stRadio { display: none !important; }
 
 .stButton > button[kind="primary"],
 .stFormSubmitButton > button[kind="primary"] {
@@ -276,6 +232,51 @@ div[data-testid="stSidebar"] .stButton > button:hover {
   border-radius: 14px !important;
   font-weight: 600 !important;
   min-height: 2.75rem !important;
+}
+
+/* Sidebar DESPUÉS del primary global (gana especificidad) */
+div[data-testid="stSidebar"] .stButton > button {
+  width: 100% !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  min-height: 3.5rem !important;
+  padding: 0.95rem 1.1rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  border-radius: 14px !important;
+  margin: 0.25rem 0 !important;
+  box-shadow: none !important;
+}
+div[data-testid="stSidebar"] .stButton > button[kind="secondary"] {
+  background: transparent !important;
+  color: #C8D0C6 !important;
+  border: 1px solid transparent !important;
+}
+div[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover {
+  background: rgba(150,193,31,0.1) !important;
+  color: #F2F5F0 !important;
+}
+div[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+  background: rgba(150,193,31,0.22) !important;
+  color: #F2F5F0 !important;
+  border: 1px solid rgba(150,193,31,0.5) !important;
+  box-shadow: inset 4px 0 0 #96C11F !important;
+  font-weight: 700 !important;
+}
+/* Cerrar sesión con borde */
+div[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] + div .stButton > button,
+div[data-testid="stSidebar"] button[kind="secondary"][data-testid="baseButton-secondary"] {
+  /* fallback */
+}
+div[data-testid="stSidebar"] .stButton:has(button#btn_logout) button,
+div[data-testid="stSidebar"] button[kind="secondary"] {
+  /* logout shares secondary — last secondary after divider gets border via: */
+}
+div[data-testid="stSidebar"] div:last-child .stButton > button[kind="secondary"] {
+  border: 1px solid rgba(242,245,240,0.2) !important;
+  justify-content: center !important;
+  text-align: center !important;
+  margin-top: 0.4rem !important;
 }
 
 div[data-baseweb="input"] > div,
@@ -511,37 +512,42 @@ st.sidebar.markdown(
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
 
 if st.session_state.rol == "comerciante":
-    # Iconos outline (texto) + labels, estilo panel app
-    seccion = st.sidebar.radio(
-        "Menú",
-        [
-            "▦  Publicar carga",
-            "◎  Ofertas",
-            "▣  Mapa",
-            "◍  Monitoreo",
-            "☰  Evidencia",
-        ],
-        label_visibility="collapsed",
-    )
+    menu_items = [
+        "Publicar carga",
+        "Ofertas",
+        "Mapa",
+        "Monitoreo",
+        "Evidencia",
+    ]
 else:
-    seccion = st.sidebar.radio(
-        "Menú",
-        [
-            "◉  Mi perfil",
-            "▦  Cargas",
-            "▣  En ruta",
-            "◌  Validar",
-        ],
-        label_visibility="collapsed",
-    )
+    menu_items = [
+        "Mi perfil",
+        "Cargas",
+        "En ruta",
+        "Validar",
+    ]
 
-# Quita el icono del valor → clave estable para las pantallas
-seccion = seccion.split(None, 1)[-1].strip()
+if "seccion" not in st.session_state or st.session_state.seccion not in menu_items:
+    st.session_state.seccion = menu_items[0]
+
+for item in menu_items:
+    activo = st.session_state.seccion == item
+    if st.sidebar.button(
+        item,
+        key=f"nav_{st.session_state.rol}_{item}",
+        use_container_width=True,
+        type="primary" if activo else "secondary",
+    ):
+        st.session_state.seccion = item
+        st.rerun()
+
+seccion = st.session_state.seccion
 
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
-if st.sidebar.button("Cerrar sesión", use_container_width=True):
-    for k in ("autenticado", "usuario", "rol", "nombre_sesion"):
-        st.session_state[k] = False if k == "autenticado" else ""
+if st.sidebar.button("Cerrar sesión", key="btn_logout", use_container_width=True):
+    for k in ("autenticado", "usuario", "rol", "nombre_sesion", "seccion"):
+        if k in st.session_state:
+            st.session_state[k] = False if k == "autenticado" else ""
     st.rerun()
 
 # =====================================================================
