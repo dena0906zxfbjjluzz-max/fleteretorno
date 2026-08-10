@@ -23,8 +23,8 @@ st.set_page_config(
 )
 
 USUARIOS = {
-    "comerciante": {"clave": "santaanita2026", "rol": "comerciante", "nombre": "Ana Torres"},
-    "chofer": {"clave": "flete2026", "rol": "chofer", "nombre": "Luis Quispe"},
+    "comerciante": {"clave": "santaanita2026", "rol": "comerciante", "nombre": "Comerciante Demo"},
+    "chofer": {"clave": "flete2026", "rol": "chofer", "nombre": "Chofer Demo"},
 }
 
 DNI_BANEADOS = {"45892174", "10234567"}
@@ -173,106 +173,10 @@ div[data-testid="stSidebar"] {
 div[data-testid="stSidebar"] .fr-side-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #F2F5F0;
-  margin: 0.2rem 0 0.9rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand span { color: #C1F11D; }
-
-.fr-profile {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
-  margin-bottom: 0.85rem;
-  border-radius: 16px;
-  background: rgba(193,241,29,0.06);
-  border: 1px solid rgba(193,241,29,0.18);
-}
-.fr-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: #C1F11D;
-  color: #0B0F0C;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.fr-profile-name {
-  margin: 0;
-  font-weight: 700;
-  color: #F2F5F0;
-  font-size: 0.95rem;
-  line-height: 1.2;
-}
-.fr-profile-role {
-  margin: 0.15rem 0 0;
-  color: #A8B3A6;
-  font-size: 0.78rem;
-  font-weight: 500;
-}
-.fr-nav-label {
-  margin: 0.35rem 0 0.45rem;
-  color: #7E8A7C;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.fr-page-head {
-  margin: 0 0 1rem;
-}
-.fr-page-head h1 {
-  margin: 0 !important;
-  font-size: 1.65rem !important;
-}
-.fr-page-head p {
-  margin: 0.35rem 0 0;
-  color: #9AA69A;
-  font-size: 0.95rem;
-}
-.fr-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.55rem;
-  margin: 0 0 1.1rem;
-}
-.fr-stat {
-  background: #151B16;
-  border: 1px solid rgba(242,245,240,0.08);
-  border-radius: 14px;
-  padding: 0.75rem 0.65rem;
-  text-align: center;
-}
-.fr-stat b {
-  display: block;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.2rem;
-  color: #C1F11D;
-  line-height: 1.1;
-}
-.fr-stat span {
-  display: block;
-  margin-top: 0.25rem;
-  color: #9AA69A;
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-
-div[data-testid="stSidebar"] div[role="radiogroup"] label {
-  background: transparent !important;
-  border-radius: 12px !important;
-  padding: 0.45rem 0.55rem !important;
-  margin-bottom: 0.2rem !important;
-}
-div[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-  background: rgba(242,245,240,0.04) !important;
-}
 
 /* Primary buttons → InDrive lime */
 .stButton > button[kind="primary"],
@@ -359,7 +263,7 @@ def init_demo_store() -> None:
                 "descripcion": "20 Tn fertilizante",
                 "precio": 1500.0,
                 "estado": "DISPONIBLE",
-                "comerciante": "Ana Torres",
+                "comerciante": "Comerciante Demo",
                 "chofer": None,
                 "precio_acordado": None,
             },
@@ -370,7 +274,7 @@ def init_demo_store() -> None:
                 "descripcion": "15 Tn envases vacíos (retorno)",
                 "precio": 2200.0,
                 "estado": "DISPONIBLE",
-                "comerciante": "Ana Torres",
+                "comerciante": "Comerciante Demo",
                 "chofer": None,
                 "precio_acordado": None,
             },
@@ -507,85 +411,63 @@ if not st.session_state.autenticado:
 init_demo_store()
 
 # ---------- SHELL ----------
-nombre_ui = st.session_state.nombre_sesion
-iniciales = "".join(p[0] for p in nombre_ui.split()[:2]).upper() or "FR"
-es_comerciante = st.session_state.rol == "comerciante"
-rol_label = "Comerciante" if es_comerciante else "Chofer"
-
 st.sidebar.markdown(
     '<p class="fr-side-brand">Flete<span>Retorno</span></p>',
     unsafe_allow_html=True,
 )
-st.sidebar.markdown(
-    f"""
-<div class="fr-profile">
-  <div class="fr-avatar">{iniciales}</div>
-  <div>
-    <p class="fr-profile-name">{nombre_ui}</p>
-    <p class="fr-profile-role">{rol_label} · Santa Anita</p>
-  </div>
-</div>
-    """,
-    unsafe_allow_html=True,
-)
-st.sidebar.markdown('<p class="fr-nav-label">Menú</p>', unsafe_allow_html=True)
+rol_label = "Comerciante" if st.session_state.rol == "comerciante" else "Chofer"
+st.sidebar.markdown(f"**{st.session_state.nombre_sesion}**")
+st.sidebar.caption(f"{rol_label} · comisión {int(COMISION_PCT * 100)}%")
+if en_nube():
+    st.sidebar.success("Conectado a la nube")
+else:
+    st.sidebar.caption("Modo local")
 
-if es_comerciante:
+if st.session_state.rol == "comerciante":
     seccion = st.sidebar.radio(
         "Menú",
-        ["📦 Publicar carga", "💬 Ofertas", "🗺️ Mapa", "📡 Monitoreo", "📄 Evidencia"],
+        [
+            "Publicar carga",
+            "Ofertas",
+            "Mapa",
+            "Monitoreo",
+            "Evidencia",
+        ],
         label_visibility="collapsed",
     )
 else:
     seccion = st.sidebar.radio(
         "Menú",
-        ["🆔 Mi perfil", "🚚 Cargas", "🗺️ En ruta", "🔒 Validar"],
+        [
+            "Mi perfil",
+            "Cargas",
+            "En ruta",
+            "Validar",
+        ],
         label_visibility="collapsed",
     )
 
-# Quita emoji del inicio → clave estable
-seccion_key = seccion.split(" ", 1)[-1].strip()
-
-st.sidebar.write("")
 if st.sidebar.button("Cerrar sesión", use_container_width=True):
     for k in ("autenticado", "usuario", "rol", "nombre_sesion"):
         st.session_state[k] = False if k == "autenticado" else ""
     st.rerun()
 
-n_disp = sum(1 for f in st.session_state.fletes if f["estado"] == "DISPONIBLE")
-n_ruta = sum(1 for f in st.session_state.fletes if f["estado"] == "EN RUTA")
-n_ofertas = sum(1 for o in st.session_state.ofertas if o["estado"] == "PENDIENTE")
-
 # =====================================================================
 # COMERCIANTE
 # =====================================================================
-if es_comerciante and seccion_key == "Publicar carga":
+if st.session_state.rol == "comerciante" and seccion == "Publicar carga":
     st.markdown(
-        """
-<div class="fr-page-head">
-  <h1>Publicar carga</h1>
-  <p>Define ruta y precio. Los choferes te contraofertan.</p>
-</div>
-        """,
+        '<div class="fr-topbar"><h1>Publicar carga</h1></div>',
         unsafe_allow_html=True,
     )
-    st.markdown(
-        f"""
-<div class="fr-stats">
-  <div class="fr-stat"><b>{n_disp}</b><span>Abiertas</span></div>
-  <div class="fr-stat"><b>{n_ofertas}</b><span>Ofertas</span></div>
-  <div class="fr-stat"><b>{n_ruta}</b><span>En ruta</span></div>
-</div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.caption("Define origen, destino y el precio que ofreces. Los choferes contraofertan.")
     with st.form("pub_carga", clear_on_submit=True):
         origen = st.text_input("Origen", value="Santa Anita (Lima)")
         destino = st.text_input("Destino", placeholder="Ej: Huancayo")
         desc = st.text_input("Descripción de la carga", placeholder="Ej: 20 Tn fertilizante")
         precio = st.number_input("Tu precio (S/)", min_value=0.0, value=1500.0, step=50.0)
         com = comision_de(precio)
-        st.caption(f"Comisión plataforma ({int(COMISION_PCT * 100)}%): S/ {com:.2f}")
+        st.caption(f"Comisión de plataforma ({int(COMISION_PCT * 100)}%): S/ {com:.2f}")
         publicar = st.form_submit_button("Publicar flete", type="primary", use_container_width=True)
         if publicar:
             if not destino.strip() or not desc.strip():
@@ -623,16 +505,9 @@ if es_comerciante and seccion_key == "Publicar carga":
             unsafe_allow_html=True,
         )
 
-elif es_comerciante and seccion_key == "Ofertas":
-    st.markdown(
-        """
-<div class="fr-page-head">
-  <h1>Ofertas</h1>
-  <p>Elige la mejor contraoferta y cierra el trato.</p>
-</div>
-        """,
-        unsafe_allow_html=True,
-    )
+elif st.session_state.rol == "comerciante" and seccion == "Ofertas":
+    st.markdown('<div class="fr-topbar"><h1>Ofertas</h1></div>', unsafe_allow_html=True)
+    st.caption("Elige la mejor contraoferta y cierra el trato.")
     abiertas = [f for f in st.session_state.fletes if f["estado"] == "DISPONIBLE"]
     if not abiertas:
         st.info("No hay fletes abiertos. Publica una carga primero.")
@@ -699,13 +574,9 @@ elif es_comerciante and seccion_key == "Ofertas":
                 unsafe_allow_html=True,
             )
 
-elif es_comerciante and seccion_key == "Mapa":
-    st.markdown('''
-<div class="fr-page-head">
-  <h1>Mapa</h1>
-  <p>Seguimiento de camiones en el corredor.</p>
-</div>
-        ''', unsafe_allow_html=True)
+elif st.session_state.rol == "comerciante" and seccion == "Mapa":
+    st.markdown('<div class="fr-topbar"><h1>Mapa</h1></div>', unsafe_allow_html=True)
+    st.caption("Seguimiento de camiones en corredor.")
     camiones = st.session_state.camiones_gps
     sel = st.selectbox("Camión", list(camiones.keys()))
     d = camiones[sel]
@@ -732,13 +603,9 @@ elif es_comerciante and seccion_key == "Mapa":
     ).add_to(m)
     st_folium(m, width=700, height=400)
 
-elif es_comerciante and seccion_key == "Monitoreo":
-    st.markdown('''
-<div class="fr-page-head">
-  <h1>Monitoreo</h1>
-  <p>Alerta si el camión se aleja del corredor.</p>
-</div>
-        ''', unsafe_allow_html=True)
+elif st.session_state.rol == "comerciante" and seccion == "Monitoreo":
+    st.markdown('<div class="fr-topbar"><h1>Monitoreo</h1></div>', unsafe_allow_html=True)
+    st.caption("Alerta si el camión se aleja del corredor hacia Santa Anita.")
     lat = st.number_input("Latitud GPS", value=-12.050, format="%.4f")
     lon = st.number_input("Longitud GPS", value=-76.900, format="%.4f")
     dist = abs(lat - SANTA_ANITA[0]) + abs(lon - SANTA_ANITA[1])
@@ -748,13 +615,9 @@ elif es_comerciante and seccion_key == "Monitoreo":
     else:
         st.success("Dentro del corredor esperado.")
 
-elif es_comerciante and seccion_key == "Evidencia":
-    st.markdown('''
-<div class="fr-page-head">
-  <h1>Evidencia</h1>
-  <p>Paquete de respaldo ante un incidente.</p>
-</div>
-        ''', unsafe_allow_html=True)
+elif st.session_state.rol == "comerciante" and seccion == "Evidencia":
+    st.markdown('<div class="fr-topbar"><h1>Evidencia</h1></div>', unsafe_allow_html=True)
+    st.caption("Paquete de respaldo ante un incidente.")
     datos = {
         "Chofer": "Juan Carlos Pérez Machuca",
         "DNI": "45892174",
@@ -783,13 +646,9 @@ elif es_comerciante and seccion_key == "Evidencia":
 # =====================================================================
 # CHOFER
 # =====================================================================
-elif (not es_comerciante) and seccion_key == "Mi perfil":
-    st.markdown('''
-<div class="fr-page-head">
-  <h1>Mi perfil</h1>
-  <p>Verifica DNI, licencia y placa para ofertar.</p>
-</div>
-        ''', unsafe_allow_html=True)
+elif st.session_state.rol == "chofer" and seccion == "Mi perfil":
+    st.markdown('<div class="fr-topbar"><h1>Mi perfil</h1></div>', unsafe_allow_html=True)
+    st.caption("Verificación mínima: DNI, licencia y placa.")
     p: dict[str, Any] = st.session_state.perfil_chofer
     st.markdown(badge_estado(p.get("estado_verificacion", "PENDIENTE")), unsafe_allow_html=True)
     with st.form("perfil_chofer"):
@@ -819,20 +678,9 @@ elif (not es_comerciante) and seccion_key == "Mi perfil":
                 st.success("Perfil verificado. Ya puedes ofertar.")
                 st.rerun()
 
-elif (not es_comerciante) and seccion_key == "Cargas":
-    st.markdown('''
-<div class="fr-page-head">
-  <h1>Cargas</h1>
-  <p>Propón tu precio. El comerciante acepta o rechaza.</p>
-</div>
-        ''', unsafe_allow_html=True)
-    st.markdown(f'''
-<div class="fr-stats">
-  <div class="fr-stat"><b>{n_disp}</b><span>Disponibles</span></div>
-  <div class="fr-stat"><b>{n_ofertas}</b><span>Pendientes</span></div>
-  <div class="fr-stat"><b>{n_ruta}</b><span>En ruta</span></div>
-</div>
-        ''', unsafe_allow_html=True)
+elif st.session_state.rol == "chofer" and seccion == "Cargas":
+    st.markdown('<div class="fr-topbar"><h1>Cargas</h1></div>', unsafe_allow_html=True)
+    st.caption("Propón tu precio. El comerciante acepta o rechaza.")
     perfil = st.session_state.perfil_chofer
     if perfil.get("estado_verificacion") != "APROBADO":
         st.warning("Completa **Mi perfil** antes de ofertar.")
@@ -924,13 +772,9 @@ elif (not es_comerciante) and seccion_key == "Cargas":
         st.subheader("Mis ofertas")
         st.dataframe(pd.DataFrame(historial), use_container_width=True, hide_index=True)
 
-elif (not es_comerciante) and seccion_key == "En ruta":
-    st.markdown('''
-<div class="fr-page-head">
-  <h1>En ruta</h1>
-  <p>Tu ubicación hacia Santa Anita.</p>
-</div>
-        ''', unsafe_allow_html=True)
+elif st.session_state.rol == "chofer" and seccion == "En ruta":
+    st.markdown('<div class="fr-topbar"><h1>En ruta</h1></div>', unsafe_allow_html=True)
+    st.caption("Tu ubicación hacia Santa Anita.")
     lat = st.number_input("Latitud", value=-12.045, format="%.4f", key="ch_lat")
     lon = st.number_input("Longitud", value=-75.500, format="%.4f", key="ch_lon")
     m = folium.Map(location=[lat, lon], zoom_start=8)
@@ -942,13 +786,9 @@ elif (not es_comerciante) and seccion_key == "En ruta":
     folium.Marker(list(SANTA_ANITA), popup="Santa Anita", icon=folium.Icon(color="green")).add_to(m)
     st_folium(m, width=700, height=400)
 
-elif (not es_comerciante) and seccion_key == "Validar":
-    st.markdown('''
-<div class="fr-page-head">
-  <h1>Validar</h1>
-  <p>Consulta DNI o placa en lista negra.</p>
-</div>
-        ''', unsafe_allow_html=True)
+elif st.session_state.rol == "chofer" and seccion == "Validar":
+    st.markdown('<div class="fr-topbar"><h1>Validar</h1></div>', unsafe_allow_html=True)
+    st.caption("Consulta DNI o placa en lista negra.")
     with st.form("val_lb"):
         d = st.text_input("DNI", max_chars=8)
         p = st.text_input("Placa")
