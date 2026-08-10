@@ -40,6 +40,7 @@ def inject_styles() -> None:
 
 html, body, [class*="css"] {
   font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
 }
 
 .stApp {
@@ -49,115 +50,115 @@ html, body, [class*="css"] {
     #0B0F0C;
 }
 
-/* Hide Streamlit chrome noise */
 #MainMenu, footer { visibility: hidden; }
 header[data-testid="stHeader"] { background: transparent; }
 
 .block-container {
-  padding-top: 1.4rem !important;
-  padding-bottom: 3rem !important;
-  max-width: 760px;
+  padding-top: 1.75rem !important;
+  padding-bottom: 3.5rem !important;
+  max-width: 880px;
 }
 
 h1, h2, h3, .fr-brand {
   font-family: 'Space Grotesk', sans-serif !important;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
+h1 { font-size: 2rem !important; line-height: 1.15 !important; }
+h2 { font-size: 1.45rem !important; }
+h3 { font-size: 1.2rem !important; }
 
-/* Brand / login */
 .fr-hero {
   text-align: center;
-  padding: 2.2rem 0 0.2rem;
+  padding: 2.6rem 0 0.4rem;
 }
 .fr-mark {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 1rem;
-  border-radius: 16px;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.15rem;
+  border-radius: 20px;
   background: linear-gradient(145deg, #C1F11D 0%, #8BC34A 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.55rem;
-  box-shadow: 0 10px 30px rgba(193,241,29,0.22);
+  font-size: 2rem;
+  box-shadow: 0 12px 36px rgba(193,241,29,0.25);
 }
 .fr-brand {
-  font-size: 2.55rem;
+  font-size: 3.1rem;
   font-weight: 700;
   color: #F2F5F0;
   margin: 0;
-  line-height: 1.05;
+  line-height: 1.02;
 }
 .fr-brand span { color: #C1F11D; }
 .fr-tag {
-  margin: 0.7rem auto 0;
+  margin: 0.85rem auto 0;
   color: #A8B3A6;
-  font-size: 1.05rem;
+  font-size: 1.18rem;
   font-weight: 500;
-  max-width: 28rem;
-  line-height: 1.45;
+  max-width: 32rem;
+  line-height: 1.5;
 }
 .fr-steps {
   display: flex;
   justify-content: center;
-  gap: 0.55rem;
+  gap: 0.65rem;
   flex-wrap: wrap;
-  margin-top: 1.15rem;
+  margin-top: 1.35rem;
 }
 .fr-step {
-  padding: 0.35rem 0.7rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 999px;
   background: rgba(242,245,240,0.05);
   border: 1px solid rgba(242,245,240,0.1);
   color: #C8D0C6;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 600;
 }
 .fr-login-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #F2F5F0;
-  margin: 1.35rem 0 0.35rem;
+  margin: 1.6rem 0 0.45rem;
   text-align: center;
 }
 
-/* Login form as a product card */
 div[data-testid="stForm"] {
   background: rgba(21,27,22,0.94);
   border: 1px solid rgba(242,245,240,0.1);
-  border-radius: 22px;
-  padding: 1.25rem 1.1rem 1rem;
+  border-radius: 24px;
+  padding: 1.55rem 1.35rem 1.25rem;
   box-shadow: 0 18px 50px rgba(0,0,0,0.35);
 }
 
 .fr-card {
   background: #151B16;
   border: 1px solid rgba(242,245,240,0.08);
-  border-radius: 18px;
-  padding: 1.15rem 1.2rem;
-  margin: 0.85rem 0;
+  border-radius: 20px;
+  padding: 1.35rem 1.4rem;
+  margin: 1rem 0;
 }
 .fr-card-title {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
-  font-size: 1.05rem;
-  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+  margin: 0 0 0.3rem;
   color: #F2F5F0;
 }
-.fr-muted { color: #9AA69A; font-size: 0.9rem; margin: 0; }
+.fr-muted { color: #9AA69A; font-size: 1rem; margin: 0; }
 .fr-price {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.45rem;
+  font-size: 1.85rem;
   color: #C1F11D;
-  margin: 0.55rem 0 0.15rem;
+  margin: 0.65rem 0 0.2rem;
 }
 .fr-badge {
   display: inline-block;
-  padding: 0.15rem 0.55rem;
-  border-radius: 8px;
-  font-size: 0.72rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 9px;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -166,90 +167,104 @@ div[data-testid="stForm"] {
 .fr-badge-wait { background: rgba(255,193,7,0.15); color: #FFC107; }
 .fr-badge-go { background: rgba(33,150,243,0.18); color: #64B5F6; }
 
+.fr-page-head { margin: 0 0 1.15rem; }
+.fr-page-head h1 { margin: 0 !important; font-size: 2rem !important; }
+.fr-page-head p {
+  margin: 0.4rem 0 0;
+  color: #9AA69A;
+  font-size: 1.05rem;
+}
+
+section[data-testid="stSidebar"] {
+  min-width: 280px !important;
+}
 div[data-testid="stSidebar"] {
-  background: #121212 !important;
-  border-right: 1px solid #2a2a2a;
+  background: #101510 !important;
+  border-right: 1px solid rgba(193,241,29,0.12);
 }
 div[data-testid="stSidebar"] > div:first-child {
-  padding-top: 0.6rem;
+  padding-top: 0.85rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.45rem;
   color: #F2F5F0;
-  margin: 0.15rem 0 0.35rem;
+  margin: 0.2rem 0 0.4rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand span { color: #C1F11D; }
 .fr-side-user {
-  color: #8b8b8b;
-  font-size: 0.8rem;
-  margin: 0 0 0.85rem;
+  color: #A8B3A6;
+  font-size: 0.95rem;
+  margin: 0 0 0.95rem;
+  font-weight: 500;
 }
 .fr-side-divider {
   height: 1px;
-  background: #2a2a2a;
-  margin: 0.55rem 0 0.7rem;
+  background: rgba(242,245,240,0.1);
+  margin: 0.65rem 0 0.85rem;
   border: 0;
 }
 
-/* Menú estilo panel (tipo Supabase): sin círculos, fila activa redondeada */
 div[data-testid="stSidebar"] div[role="radiogroup"] {
-  gap: 0.15rem !important;
+  gap: 0.3rem !important;
 }
 div[data-testid="stSidebar"] div[role="radiogroup"] label {
   background: transparent !important;
-  border-radius: 8px !important;
-  padding: 0.55rem 0.7rem !important;
+  border-radius: 12px !important;
+  padding: 0.78rem 0.9rem !important;
   margin: 0 !important;
   border: 1px solid transparent !important;
   align-items: center !important;
 }
 div[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-  background: #1c1c1c !important;
+  background: rgba(193,241,29,0.06) !important;
 }
 div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-  background: #2e2e2e !important;
-  border-color: #2e2e2e !important;
+  background: rgba(193,241,29,0.14) !important;
+  border-color: rgba(193,241,29,0.28) !important;
 }
 div[data-testid="stSidebar"] div[role="radiogroup"] label p,
 div[data-testid="stSidebar"] div[role="radiogroup"] label span {
-  font-size: 0.92rem !important;
+  font-size: 1.05rem !important;
   font-weight: 500 !important;
-  color: #bdbdbd !important;
+  color: #C8D0C6 !important;
 }
 div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
 div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) span {
-  color: #f5f5f5 !important;
-  font-weight: 600 !important;
+  color: #F2F5F0 !important;
+  font-weight: 700 !important;
 }
-/* Oculta el círculo del radio */
 div[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
   display: none !important;
 }
 
 div[data-testid="stSidebar"] .stButton > button {
   background: transparent !important;
-  color: #bdbdbd !important;
-  border: 1px solid #333 !important;
-  border-radius: 8px !important;
-  font-weight: 500 !important;
-  margin-top: 0.35rem;
+  color: #C8D0C6 !important;
+  border: 1px solid rgba(242,245,240,0.14) !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  padding: 0.7rem 0.9rem !important;
+  margin-top: 0.45rem;
 }
 div[data-testid="stSidebar"] .stButton > button:hover {
-  background: #1c1c1c !important;
-  color: #fff !important;
-  border-color: #444 !important;
+  background: rgba(193,241,29,0.08) !important;
+  color: #F2F5F0 !important;
+  border-color: rgba(193,241,29,0.35) !important;
 }
 
-/* Primary buttons → InDrive lime */
 .stButton > button[kind="primary"],
 .stFormSubmitButton > button[kind="primary"] {
   background: #C1F11D !important;
   color: #0B0F0C !important;
   border: none !important;
   font-weight: 700 !important;
+  font-size: 1.05rem !important;
   border-radius: 14px !important;
+  min-height: 3rem !important;
+  padding: 0.7rem 1.1rem !important;
 }
 .stButton > button[kind="primary"]:hover,
 .stFormSubmitButton > button[kind="primary"]:hover {
@@ -259,13 +274,21 @@ div[data-testid="stSidebar"] .stButton > button:hover {
 .stButton > button, .stFormSubmitButton > button {
   border-radius: 14px !important;
   font-weight: 600 !important;
+  min-height: 2.75rem !important;
 }
 
-/* Inputs */
 div[data-baseweb="input"] > div,
 div[data-baseweb="textarea"] > div,
 div[data-baseweb="base-input"] {
-  border-radius: 12px !important;
+  border-radius: 14px !important;
+  min-height: 2.9rem !important;
+}
+label[data-testid="stWidgetLabel"] p {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+div[data-testid="stCaption"] {
+  font-size: 0.95rem !important;
 }
 
 .fr-topbar {
@@ -273,11 +296,11 @@ div[data-baseweb="base-input"] {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
 }
 .fr-topbar h1 {
   margin: 0 !important;
-  font-size: 1.55rem !important;
+  font-size: 2rem !important;
 }
 </style>
         """,
@@ -524,11 +547,12 @@ if st.sidebar.button("Cerrar sesión", use_container_width=True):
 # COMERCIANTE
 # =====================================================================
 if st.session_state.rol == "comerciante" and seccion == "Publicar carga":
-    st.markdown(
-        '<div class="fr-topbar"><h1>Publicar carga</h1></div>',
-        unsafe_allow_html=True,
-    )
-    st.caption("Define origen, destino y el precio que ofreces. Los choferes contraofertan.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Publicar carga</h1>
+  <p>Define origen, destino y el precio que ofreces.</p>
+</div>
+        ''', unsafe_allow_html=True)
     with st.form("pub_carga", clear_on_submit=True):
         origen = st.text_input("Origen", value="Santa Anita (Lima)")
         destino = st.text_input("Destino", placeholder="Ej: Huancayo")
@@ -574,8 +598,12 @@ if st.session_state.rol == "comerciante" and seccion == "Publicar carga":
         )
 
 elif st.session_state.rol == "comerciante" and seccion == "Ofertas":
-    st.markdown('<div class="fr-topbar"><h1>Ofertas</h1></div>', unsafe_allow_html=True)
-    st.caption("Elige la mejor contraoferta y cierra el trato.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Ofertas</h1>
+  <p>Elige la mejor contraoferta y cierra el trato.</p>
+</div>
+        ''', unsafe_allow_html=True)
     abiertas = [f for f in st.session_state.fletes if f["estado"] == "DISPONIBLE"]
     if not abiertas:
         st.info("No hay fletes abiertos. Publica una carga primero.")
@@ -643,8 +671,12 @@ elif st.session_state.rol == "comerciante" and seccion == "Ofertas":
             )
 
 elif st.session_state.rol == "comerciante" and seccion == "Mapa":
-    st.markdown('<div class="fr-topbar"><h1>Mapa</h1></div>', unsafe_allow_html=True)
-    st.caption("Seguimiento de camiones en corredor.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Mapa</h1>
+  <p>Seguimiento de camiones en el corredor.</p>
+</div>
+        ''', unsafe_allow_html=True)
     camiones = st.session_state.camiones_gps
     sel = st.selectbox("Camión", list(camiones.keys()))
     d = camiones[sel]
@@ -672,8 +704,12 @@ elif st.session_state.rol == "comerciante" and seccion == "Mapa":
     st_folium(m, width=700, height=400)
 
 elif st.session_state.rol == "comerciante" and seccion == "Monitoreo":
-    st.markdown('<div class="fr-topbar"><h1>Monitoreo</h1></div>', unsafe_allow_html=True)
-    st.caption("Alerta si el camión se aleja del corredor hacia Santa Anita.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Monitoreo</h1>
+  <p>Alerta si el camión se aleja del corredor.</p>
+</div>
+        ''', unsafe_allow_html=True)
     lat = st.number_input("Latitud GPS", value=-12.050, format="%.4f")
     lon = st.number_input("Longitud GPS", value=-76.900, format="%.4f")
     dist = abs(lat - SANTA_ANITA[0]) + abs(lon - SANTA_ANITA[1])
@@ -684,8 +720,12 @@ elif st.session_state.rol == "comerciante" and seccion == "Monitoreo":
         st.success("Dentro del corredor esperado.")
 
 elif st.session_state.rol == "comerciante" and seccion == "Evidencia":
-    st.markdown('<div class="fr-topbar"><h1>Evidencia</h1></div>', unsafe_allow_html=True)
-    st.caption("Paquete de respaldo ante un incidente.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Evidencia</h1>
+  <p>Paquete de respaldo ante un incidente.</p>
+</div>
+        ''', unsafe_allow_html=True)
     datos = {
         "Chofer": "Juan Carlos Pérez Machuca",
         "DNI": "45892174",
@@ -715,8 +755,12 @@ elif st.session_state.rol == "comerciante" and seccion == "Evidencia":
 # CHOFER
 # =====================================================================
 elif st.session_state.rol == "chofer" and seccion == "Mi perfil":
-    st.markdown('<div class="fr-topbar"><h1>Mi perfil</h1></div>', unsafe_allow_html=True)
-    st.caption("Verificación mínima: DNI, licencia y placa.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Mi perfil</h1>
+  <p>Verifica DNI, licencia y placa para ofertar.</p>
+</div>
+        ''', unsafe_allow_html=True)
     p: dict[str, Any] = st.session_state.perfil_chofer
     st.markdown(badge_estado(p.get("estado_verificacion", "PENDIENTE")), unsafe_allow_html=True)
     with st.form("perfil_chofer"):
@@ -747,8 +791,12 @@ elif st.session_state.rol == "chofer" and seccion == "Mi perfil":
                 st.rerun()
 
 elif st.session_state.rol == "chofer" and seccion == "Cargas":
-    st.markdown('<div class="fr-topbar"><h1>Cargas</h1></div>', unsafe_allow_html=True)
-    st.caption("Propón tu precio. El comerciante acepta o rechaza.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Cargas</h1>
+  <p>Propón tu precio. El comerciante acepta o rechaza.</p>
+</div>
+        ''', unsafe_allow_html=True)
     perfil = st.session_state.perfil_chofer
     if perfil.get("estado_verificacion") != "APROBADO":
         st.warning("Completa **Mi perfil** antes de ofertar.")
@@ -841,8 +889,12 @@ elif st.session_state.rol == "chofer" and seccion == "Cargas":
         st.dataframe(pd.DataFrame(historial), use_container_width=True, hide_index=True)
 
 elif st.session_state.rol == "chofer" and seccion == "En ruta":
-    st.markdown('<div class="fr-topbar"><h1>En ruta</h1></div>', unsafe_allow_html=True)
-    st.caption("Tu ubicación hacia Santa Anita.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>En ruta</h1>
+  <p>Tu ubicación hacia Santa Anita.</p>
+</div>
+        ''', unsafe_allow_html=True)
     lat = st.number_input("Latitud", value=-12.045, format="%.4f", key="ch_lat")
     lon = st.number_input("Longitud", value=-75.500, format="%.4f", key="ch_lon")
     m = folium.Map(location=[lat, lon], zoom_start=8)
@@ -855,8 +907,12 @@ elif st.session_state.rol == "chofer" and seccion == "En ruta":
     st_folium(m, width=700, height=400)
 
 elif st.session_state.rol == "chofer" and seccion == "Validar":
-    st.markdown('<div class="fr-topbar"><h1>Validar</h1></div>', unsafe_allow_html=True)
-    st.caption("Consulta DNI o placa en lista negra.")
+    st.markdown('''
+<div class="fr-page-head">
+  <h1>Validar</h1>
+  <p>Consulta DNI o placa en lista negra.</p>
+</div>
+        ''', unsafe_allow_html=True)
     with st.form("val_lb"):
         d = st.text_input("DNI", max_chars=8)
         p = st.text_input("Placa")
