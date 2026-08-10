@@ -235,48 +235,50 @@ div[data-testid="stSidebar"] .stRadio { display: none !important; }
 }
 
 /* Sidebar DESPUÉS del primary global (gana especificidad) */
+section[data-testid="stSidebar"] .stButton > button,
 div[data-testid="stSidebar"] .stButton > button {
   width: 100% !important;
   justify-content: flex-start !important;
   text-align: left !important;
   min-height: 3.5rem !important;
   padding: 0.95rem 1.1rem !important;
-  font-size: 1.2rem !important;
+  font-size: 1.15rem !important;
   font-weight: 600 !important;
-  border-radius: 14px !important;
-  margin: 0.25rem 0 !important;
+  border-radius: 12px !important;
+  margin: 0.18rem 0 !important;
   box-shadow: none !important;
 }
-div[data-testid="stSidebar"] .stButton > button[kind="secondary"] {
+section[data-testid="stSidebar"] .stButton > button[kind="secondary"],
+div[data-testid="stSidebar"] .stButton > button[kind="secondary"],
+section[data-testid="stSidebar"] button[data-testid="baseButton-secondary"],
+div[data-testid="stSidebar"] button[data-testid="baseButton-secondary"] {
   background: transparent !important;
   color: #C8D0C6 !important;
   border: 1px solid transparent !important;
 }
+section[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover,
 div[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover {
   background: rgba(150,193,31,0.1) !important;
   color: #F2F5F0 !important;
+  border-color: transparent !important;
 }
-div[data-testid="stSidebar"] .stButton > button[kind="primary"] {
-  background: rgba(150,193,31,0.22) !important;
+section[data-testid="stSidebar"] .stButton > button[kind="primary"],
+div[data-testid="stSidebar"] .stButton > button[kind="primary"],
+section[data-testid="stSidebar"] button[data-testid="baseButton-primary"],
+div[data-testid="stSidebar"] button[data-testid="baseButton-primary"] {
+  background: rgba(150,193,31,0.18) !important;
   color: #F2F5F0 !important;
-  border: 1px solid rgba(150,193,31,0.5) !important;
+  border: 1px solid rgba(150,193,31,0.35) !important;
   box-shadow: inset 4px 0 0 #96C11F !important;
   font-weight: 700 !important;
 }
-/* Cerrar sesión con borde */
-div[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] + div .stButton > button,
-div[data-testid="stSidebar"] button[kind="secondary"][data-testid="baseButton-secondary"] {
-  /* fallback */
-}
-div[data-testid="stSidebar"] .stButton:has(button#btn_logout) button,
-div[data-testid="stSidebar"] button[kind="secondary"] {
-  /* logout shares secondary — last secondary after divider gets border via: */
-}
-div[data-testid="stSidebar"] div:last-child .stButton > button[kind="secondary"] {
-  border: 1px solid rgba(242,245,240,0.2) !important;
+/* Solo Cerrar sesión con borde */
+section[data-testid="stSidebar"] div[data-testid="element-container"]:last-of-type .stButton > button,
+div[data-testid="stSidebar"] div[data-testid="element-container"]:last-of-type .stButton > button {
+  border: 1px solid rgba(242,245,240,0.22) !important;
   justify-content: center !important;
   text-align: center !important;
-  margin-top: 0.4rem !important;
+  margin-top: 0.45rem !important;
 }
 
 div[data-baseweb="input"] > div,
@@ -512,39 +514,41 @@ st.sidebar.markdown(
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
 
 if st.session_state.rol == "comerciante":
+    # (clave interna, etiqueta con figura tipo panel)
     menu_items = [
-        "Publicar carga",
-        "Ofertas",
-        "Mapa",
-        "Monitoreo",
-        "Evidencia",
+        ("Publicar carga", "▦  Publicar carga"),
+        ("Ofertas", "◎  Ofertas"),
+        ("Mapa", "▣  Mapa"),
+        ("Monitoreo", "◍  Monitoreo"),
+        ("Evidencia", "☰  Evidencia"),
     ]
 else:
     menu_items = [
-        "Mi perfil",
-        "Cargas",
-        "En ruta",
-        "Validar",
+        ("Mi perfil", "◉  Mi perfil"),
+        ("Cargas", "▦  Cargas"),
+        ("En ruta", "▣  En ruta"),
+        ("Validar", "◌  Validar"),
     ]
 
-if "seccion" not in st.session_state or st.session_state.seccion not in menu_items:
-    st.session_state.seccion = menu_items[0]
+menu_keys = [k for k, _ in menu_items]
+if "seccion" not in st.session_state or st.session_state.seccion not in menu_keys:
+    st.session_state.seccion = menu_keys[0]
 
-for item in menu_items:
-    activo = st.session_state.seccion == item
+for key, label in menu_items:
+    activo = st.session_state.seccion == key
     if st.sidebar.button(
-        item,
-        key=f"nav_{st.session_state.rol}_{item}",
+        label,
+        key=f"nav_{st.session_state.rol}_{key}",
         use_container_width=True,
         type="primary" if activo else "secondary",
     ):
-        st.session_state.seccion = item
+        st.session_state.seccion = key
         st.rerun()
 
 seccion = st.session_state.seccion
 
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
-if st.sidebar.button("Cerrar sesión", key="btn_logout", use_container_width=True):
+if st.sidebar.button("⏻  Cerrar sesión", key="btn_logout", use_container_width=True):
     for k in ("autenticado", "usuario", "rol", "nombre_sesion", "seccion"):
         if k in st.session_state:
             st.session_state[k] = False if k == "autenticado" else ""
