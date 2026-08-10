@@ -730,64 +730,75 @@ if st.session_state.rol == "comerciante" and seccion == "Publicar carga":
             )
 
 elif st.session_state.rol == "comerciante" and seccion == "Ofertas":
-    st.markdown('''
+    st.markdown(
+        '''
 <div class="fr-page-head">
   <h1>Ofertas</h1>
   <p>Elige la mejor contraoferta y cierra el trato.</p>
 </div>
-        ''', unsafe_allow_html=True)
+        ''',
+        unsafe_allow_html=True,
+    )
     abiertas = [f for f in st.session_state.fletes if f["estado"] == "DISPONIBLE"]
     if not abiertas:
         st.info("No hay fletes abiertos. Publica una carga primero.")
     else:
         for f in abiertas:
             ofs = [o for o in st.session_state.ofertas if o["flete_id"] == f["id"] and o["estado"] == "PENDIENTE"]
-            with st.expander(
-                f"#{f['id']}  {f['origen']} → {f['destino']}  ·  S/ {f['precio']:.0f}  ·  {len(ofs)} oferta(s)",
-                expanded=bool(ofs),
-            ):
-                st.write(f"**Carga:** {f['descripcion']}")
-                if not ofs:
-                    st.caption("Aún no hay contraofertas.")
-                for o in ofs:
-                    st.markdown(
-                        f"""
+            n_ofs = len(ofs)
+            st.markdown(
+                f"""
 <div class="fr-card">
+  <p class="fr-card-title">#{f['id']} · {f['origen']} → {f['destino']}</p>
+  <p class="fr-muted">{f['descripcion']}</p>
+  <p class="fr-price">S/ {f['precio']:.0f}</p>
+  {badge_estado(f['estado'])}
+  <p class="fr-muted" style="margin-top:0.55rem;">{n_ofs} oferta(s) pendiente(s)</p>
+</div>
+                """,
+                unsafe_allow_html=True,
+            )
+            if not ofs:
+                st.caption("Aún no hay contraofertas para este flete.")
+            for o in ofs:
+                st.markdown(
+                    f"""
+<div class="fr-card" style="margin-left:0.35rem;border-color:rgba(150,193,31,0.25);">
   <p class="fr-card-title">{o['chofer_nombre']}</p>
   <p class="fr-muted">DNI {o['dni']} · Placa {o['placa']}</p>
   <p class="fr-price">S/ {o['monto']:.0f}</p>
   <p class="fr-muted">{o.get('nota') or 'Sin nota'}</p>
 </div>
-                        """,
-                        unsafe_allow_html=True,
-                    )
-                    c1, c2 = st.columns(2)
-                    with c1:
-                        if st.button("Aceptar", key=f"ok_{o['id']}", type="primary", use_container_width=True):
-                            f["estado"] = "EN RUTA"
-                            f["chofer"] = o["chofer_nombre"]
-                            f["precio_acordado"] = float(o["monto"])
-                            o["estado"] = "ACEPTADA"
-                            for otras in st.session_state.ofertas:
-                                if (
-                                    otras["flete_id"] == f["id"]
-                                    and otras["id"] != o["id"]
-                                    and otras["estado"] == "PENDIENTE"
-                                ):
-                                    otras["estado"] = "RECHAZADA"
-                            st.success(
-                                f"Trato cerrado · {o['chofer_nombre']} · "
-                                f"S/ {o['monto']:.0f} · comisión S/ {comision_de(o['monto']):.2f}"
-                            )
-                            st.rerun()
-                    with c2:
-                        if st.button("Rechazar", key=f"no_{o['id']}", use_container_width=True):
-                            o["estado"] = "RECHAZADA"
-                            st.rerun()
+                    """,
+                    unsafe_allow_html=True,
+                )
+                c1, c2 = st.columns(2)
+                with c1:
+                    if st.button("Aceptar", key=f"ok_{o['id']}", type="primary", use_container_width=True):
+                        f["estado"] = "EN RUTA"
+                        f["chofer"] = o["chofer_nombre"]
+                        f["precio_acordado"] = float(o["monto"])
+                        o["estado"] = "ACEPTADA"
+                        for otras in st.session_state.ofertas:
+                            if (
+                                otras["flete_id"] == f["id"]
+                                and otras["id"] != o["id"]
+                                and otras["estado"] == "PENDIENTE"
+                            ):
+                                otras["estado"] = "RECHAZADA"
+                        st.success(
+                            f"Trato cerrado · {o['chofer_nombre']} · "
+                            f"S/ {o['monto']:.0f} · comisión S/ {comision_de(o['monto']):.2f}"
+                        )
+                        st.rerun()
+                with c2:
+                    if st.button("Rechazar", key=f"no_{o['id']}", use_container_width=True):
+                        o["estado"] = "RECHAZADA"
+                        st.rerun()
 
     cerrados = [f for f in st.session_state.fletes if f["estado"] == "EN RUTA"]
     if cerrados:
-        st.subheader("En ruta")
+        st.markdown("##### En ruta")
         for f in cerrados:
             precio = f.get("precio_acordado") or f["precio"]
             st.markdown(
