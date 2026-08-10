@@ -1,0 +1,8 @@
+# app-fletes — no subir secrets ni venv
+venv/
+.venv/
+.streamlit/secrets.toml
+__pycache__/
+*.pyc
+.env
+.DS_Store
