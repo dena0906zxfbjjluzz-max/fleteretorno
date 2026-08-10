@@ -17,11 +17,13 @@ MVP de arranque **de abajo hacia arriba**: publicar carga → chofer contraofert
 ## Arranque en Ubuntu / WSL
 
 ```bash
-cd /home/dena0/app-negocio/app-fletes
+cd /home/dena0/fleteretorno
 source venv/bin/activate
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+Proyecto **aparte** del de papas (`app-negocio`). Repo Git propio en esta carpeta.
 
 Abre el link local (suele ser `http://localhost:8501`).
 
