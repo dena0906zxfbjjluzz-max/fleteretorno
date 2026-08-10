@@ -167,16 +167,80 @@ div[data-testid="stForm"] {
 .fr-badge-go { background: rgba(33,150,243,0.18); color: #64B5F6; }
 
 div[data-testid="stSidebar"] {
-  background: #101510;
-  border-right: 1px solid rgba(242,245,240,0.06);
+  background: #121212 !important;
+  border-right: 1px solid #2a2a2a;
+}
+div[data-testid="stSidebar"] > div:first-child {
+  padding-top: 0.6rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: #F2F5F0;
+  margin: 0.15rem 0 0.35rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand span { color: #C1F11D; }
+.fr-side-user {
+  color: #8b8b8b;
+  font-size: 0.8rem;
+  margin: 0 0 0.85rem;
+}
+.fr-side-divider {
+  height: 1px;
+  background: #2a2a2a;
+  margin: 0.55rem 0 0.7rem;
+  border: 0;
+}
+
+/* Menú estilo panel (tipo Supabase): sin círculos, fila activa redondeada */
+div[data-testid="stSidebar"] div[role="radiogroup"] {
+  gap: 0.15rem !important;
+}
+div[data-testid="stSidebar"] div[role="radiogroup"] label {
+  background: transparent !important;
+  border-radius: 8px !important;
+  padding: 0.55rem 0.7rem !important;
+  margin: 0 !important;
+  border: 1px solid transparent !important;
+  align-items: center !important;
+}
+div[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+  background: #1c1c1c !important;
+}
+div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+  background: #2e2e2e !important;
+  border-color: #2e2e2e !important;
+}
+div[data-testid="stSidebar"] div[role="radiogroup"] label p,
+div[data-testid="stSidebar"] div[role="radiogroup"] label span {
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  color: #bdbdbd !important;
+}
+div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
+div[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) span {
+  color: #f5f5f5 !important;
+  font-weight: 600 !important;
+}
+/* Oculta el círculo del radio */
+div[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
+  display: none !important;
+}
+
+div[data-testid="stSidebar"] .stButton > button {
+  background: transparent !important;
+  color: #bdbdbd !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  margin-top: 0.35rem;
+}
+div[data-testid="stSidebar"] .stButton > button:hover {
+  background: #1c1c1c !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
 
 /* Primary buttons → InDrive lime */
 .stButton > button[kind="primary"],
@@ -416,22 +480,22 @@ st.sidebar.markdown(
     unsafe_allow_html=True,
 )
 rol_label = "Comerciante" if st.session_state.rol == "comerciante" else "Chofer"
-st.sidebar.markdown(f"**{st.session_state.nombre_sesion}**")
-st.sidebar.caption(f"{rol_label} · comisión {int(COMISION_PCT * 100)}%")
-if en_nube():
-    st.sidebar.success("Conectado a la nube")
-else:
-    st.sidebar.caption("Modo local")
+st.sidebar.markdown(
+    f'<p class="fr-side-user">{st.session_state.nombre_sesion} · {rol_label}</p>',
+    unsafe_allow_html=True,
+)
+st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
 
 if st.session_state.rol == "comerciante":
+    # Iconos outline (texto) + labels, estilo panel app
     seccion = st.sidebar.radio(
         "Menú",
         [
-            "Publicar carga",
-            "Ofertas",
-            "Mapa",
-            "Monitoreo",
-            "Evidencia",
+            "▦  Publicar carga",
+            "◎  Ofertas",
+            "▣  Mapa",
+            "◍  Monitoreo",
+            "☰  Evidencia",
         ],
         label_visibility="collapsed",
     )
@@ -439,14 +503,18 @@ else:
     seccion = st.sidebar.radio(
         "Menú",
         [
-            "Mi perfil",
-            "Cargas",
-            "En ruta",
-            "Validar",
+            "◉  Mi perfil",
+            "▦  Cargas",
+            "▣  En ruta",
+            "◌  Validar",
         ],
         label_visibility="collapsed",
     )
 
+# Quita el icono del valor → clave estable para las pantallas
+seccion = seccion.split(None, 1)[-1].strip()
+
+st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
 if st.sidebar.button("Cerrar sesión", use_container_width=True):
     for k in ("autenticado", "usuario", "rol", "nombre_sesion"):
         st.session_state[k] = False if k == "autenticado" else ""
