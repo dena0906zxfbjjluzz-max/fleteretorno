@@ -57,7 +57,7 @@ header[data-testid="stHeader"] { background: transparent; }
 .block-container {
   padding-top: 1.75rem !important;
   padding-bottom: 3.5rem !important;
-  max-width: 880px;
+  max-width: 1100px;
 }
 
 h1, h2, h3, .fr-brand {
@@ -655,55 +655,79 @@ if st.sidebar.button("Cerrar sesión", key="btn_logout", use_container_width=Tru
 # COMERCIANTE
 # =====================================================================
 if st.session_state.rol == "comerciante" and seccion == "Publicar carga":
-    st.markdown('''
+    st.markdown(
+        '''
 <div class="fr-page-head">
   <h1>Publicar carga</h1>
   <p>Define origen, destino y el precio que ofreces.</p>
 </div>
-        ''', unsafe_allow_html=True)
-    with st.form("pub_carga", clear_on_submit=True):
-        origen = st.text_input("Origen", value="Santa Anita (Lima)")
-        destino = st.text_input("Destino", placeholder="Ej: Huancayo")
-        desc = st.text_input("Descripción de la carga", placeholder="Ej: 20 Tn fertilizante")
-        precio = st.number_input("Tu precio (S/)", min_value=0.0, value=1500.0, step=50.0)
-        com = comision_de(precio)
-        st.caption(f"Comisión de plataforma ({int(COMISION_PCT * 100)}%): S/ {com:.2f}")
-        publicar = st.form_submit_button("Publicar flete", type="primary", use_container_width=True)
-        if publicar:
-            if not destino.strip() or not desc.strip():
-                st.error("Completa destino y descripción.")
-            else:
-                fid = st.session_state.siguiente_id_flete
-                st.session_state.siguiente_id_flete += 1
-                st.session_state.fletes.append(
-                    {
-                        "id": fid,
-                        "origen": origen.strip(),
-                        "destino": destino.strip(),
-                        "descripcion": desc.strip(),
-                        "precio": float(precio),
-                        "estado": "DISPONIBLE",
-                        "comerciante": st.session_state.nombre_sesion,
-                        "chofer": None,
-                        "precio_acordado": None,
-                    }
-                )
-                st.success(f"Carga #{fid} publicada. Ya puede recibir ofertas.")
-                st.rerun()
+        ''',
+        unsafe_allow_html=True,
+    )
 
-    st.subheader("Tus fletes")
-    for f in reversed(st.session_state.fletes):
-        st.markdown(
-            f"""
+    col_form, col_list = st.columns([1.15, 1], gap="large")
+
+    with col_form:
+        with st.form("pub_carga", clear_on_submit=True):
+            c1, c2 = st.columns(2)
+            with c1:
+                origen = st.text_input("Origen", value="Santa Anita (Lima)")
+            with c2:
+                destino = st.text_input("Destino", placeholder="Ej: Huancayo")
+            desc = st.text_input("Descripción de la carga", placeholder="Ej: 20 Tn fertilizante")
+            p1, p2 = st.columns(2)
+            with p1:
+                precio = st.number_input("Tu precio (S/)", min_value=0.0, value=1500.0, step=50.0)
+            with p2:
+                com = comision_de(precio)
+                st.markdown(
+                    f"""
+<div class="fr-card" style="margin-top:1.55rem;padding:0.85rem 1rem;">
+  <p class="fr-muted" style="margin:0;">Comisión {int(COMISION_PCT * 100)}%</p>
+  <p class="fr-price" style="font-size:1.35rem;margin:0.2rem 0 0;">S/ {com:.2f}</p>
+</div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            publicar = st.form_submit_button("Publicar flete", type="primary", use_container_width=True)
+            if publicar:
+                if not destino.strip() or not desc.strip():
+                    st.error("Completa destino y descripción.")
+                else:
+                    fid = st.session_state.siguiente_id_flete
+                    st.session_state.siguiente_id_flete += 1
+                    st.session_state.fletes.append(
+                        {
+                            "id": fid,
+                            "origen": origen.strip(),
+                            "destino": destino.strip(),
+                            "descripcion": desc.strip(),
+                            "precio": float(precio),
+                            "estado": "DISPONIBLE",
+                            "comerciante": st.session_state.nombre_sesion,
+                            "chofer": None,
+                            "precio_acordado": None,
+                        }
+                    )
+                    st.success(f"Carga #{fid} publicada. Ya puede recibir ofertas.")
+                    st.rerun()
+
+    with col_list:
+        st.markdown("##### Tus fletes")
+        if not st.session_state.fletes:
+            st.caption("Aún no hay cargas publicadas.")
+        for f in reversed(st.session_state.fletes):
+            st.markdown(
+                f"""
 <div class="fr-card">
   <p class="fr-card-title">#{f['id']} · {f['origen']} → {f['destino']}</p>
   <p class="fr-muted">{f['descripcion']}</p>
   <p class="fr-price">S/ {f['precio']:.0f}</p>
   {badge_estado(f['estado'])}
 </div>
-            """,
-            unsafe_allow_html=True,
-        )
+                """,
+                unsafe_allow_html=True,
+            )
 
 elif st.session_state.rol == "comerciante" and seccion == "Ofertas":
     st.markdown('''
