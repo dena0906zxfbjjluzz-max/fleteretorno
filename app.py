@@ -293,6 +293,35 @@ div[data-baseweb="textarea"] > div,
 div[data-baseweb="base-input"] {
   border-radius: 14px !important;
   min-height: 3.15rem !important;
+  background-color: #243028 !important;
+  border: 1px solid rgba(242,245,240,0.18) !important;
+}
+div[data-baseweb="input"] input,
+div[data-baseweb="textarea"] textarea,
+div[data-baseweb="base-input"] input {
+  color: #F2F5F0 !important;
+  caret-color: #C8F52A !important;
+}
+div[data-baseweb="input"] input::placeholder,
+div[data-baseweb="textarea"] textarea::placeholder {
+  color: #9AA69A !important;
+  opacity: 0.9 !important;
+}
+/* Focus más claro / visible */
+div[data-baseweb="input"]:focus-within > div,
+div[data-baseweb="base-input"]:focus-within,
+div[data-baseweb="input"] > div[data-focused="true"] {
+  background-color: #2C3A32 !important;
+  border-color: #96C11F !important;
+  box-shadow: 0 0 0 1px rgba(150,193,31,0.35) !important;
+}
+/* Select / number también más claros */
+div[data-baseweb="select"] > div,
+div[data-baseweb="select"] > div > div {
+  background-color: #243028 !important;
+  border-color: rgba(242,245,240,0.18) !important;
+  border-radius: 14px !important;
+  min-height: 3.15rem !important;
 }
 label[data-testid="stWidgetLabel"] p {
   font-size: 1rem !important;
