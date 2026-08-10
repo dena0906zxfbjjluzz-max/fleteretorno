@@ -7,7 +7,6 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
-from urllib.parse import quote
 
 import folium
 import pandas as pd
@@ -171,74 +170,42 @@ div[data-testid="stForm"] {
 
 .fr-page-head { margin: 0 0 1.15rem; }
 .fr-page-head h1 { margin: 0 !important;section[data-testid="stSidebar"] {
-  min-width: 280px !important;
-  width: 280px !important;
+  min-width: 270px !important;
+  width: 270px !important;
 }
 div[data-testid="stSidebar"] {
   background: #171717 !important;
-  border-right: 1px solid #2a2a2a;
+  border-right: 1px solid #2a2a2a !important;
 }
 div[data-testid="stSidebar"] > div:first-child {
-  padding-top: 0.85rem;
-  padding-left: 0.45rem;
-  padding-right: 0.45rem;
+  padding-top: 0.75rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   color: #F2F5F0;
-  margin: 0.15rem 0 0.25rem;
+  margin: 0.1rem 0 0.2rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand span { color: #C8F52A; }
 .fr-side-user {
   color: #8a8a8a;
-  font-size: 0.88rem;
-  margin: 0 0 0.85rem;
+  font-size: 0.85rem;
+  margin: 0 0 0.7rem;
   font-weight: 500;
 }
 .fr-side-divider {
   height: 1px;
   background: #2a2a2a;
-  margin: 0.55rem 0.35rem 0.65rem;
+  margin: 0.45rem 0.25rem 0.55rem;
   border: 0;
 }
 
-/* Nav estilo Supabase */
-.sb-nav { display: flex; flex-direction: column; gap: 0.15rem; margin: 0.15rem 0 0.5rem; }
-.sb-item {
-  display: flex !important;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.55rem 0.7rem;
-  border-radius: 8px;
-  color: #a3a3a3 !important;
-  text-decoration: none !important;
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1.2;
-  border: none !important;
-  background: transparent;
-  transition: background .12s ease, color .12s ease;
-}
-.sb-item:hover {
-  background: #222 !important;
-  color: #f5f5f5 !important;
-}
-.sb-item.active {
-  background: #2e2e2e !important;
-  color: #fafafa !important;
-  font-weight: 600;
-}
-.sb-item .material-symbols-outlined {
-  font-size: 1.25rem !important;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  opacity: 0.92;
-}
-.sb-item.active .material-symbols-outlined { opacity: 1; }
-
 div[data-testid="stSidebar"] .stRadio { display: none !important; }
 
+/* Botones verdes del contenido principal */
 .stButton > button[kind="primary"],
 .stFormSubmitButton > button[kind="primary"] {
   background: #96C11F !important;
@@ -261,34 +228,59 @@ div[data-testid="stSidebar"] .stRadio { display: none !important; }
   min-height: 2.75rem !important;
 }
 
-/* Logout en sidebar: outline discreto */
+/* ===== Menú lateral = filas verticales tipo Supabase ===== */
 section[data-testid="stSidebar"] .stButton > button,
-div[data-testid="stSidebar"] .stButton > button {
+section[data-testid="stSidebar"] button[data-testid="baseButton-secondary"],
+section[data-testid="stSidebar"] button[data-testid="baseButton-primary"],
+div[data-testid="stSidebar"] .stButton > button,
+div[data-testid="stSidebar"] button[data-testid="baseButton-secondary"],
+div[data-testid="stSidebar"] button[data-testid="baseButton-primary"] {
   width: 100% !important;
+  display: inline-flex !important;
+  align-items: center !important;
   justify-content: flex-start !important;
   text-align: left !important;
-  min-height: 2.7rem !important;
-  padding: 0.65rem 0.75rem !important;
+  min-height: 2.55rem !important;
+  height: auto !important;
+  padding: 0.55rem 0.7rem !important;
+  margin: 0.08rem 0 !important;
   font-size: 0.95rem !important;
   font-weight: 500 !important;
+  letter-spacing: 0 !important;
   border-radius: 8px !important;
-  margin: 0.15rem 0 !important;
+  border: none !important;
   box-shadow: none !important;
   background: transparent !important;
+  background-color: transparent !important;
   color: #a3a3a3 !important;
-  border: 1px solid #333 !important;
 }
 section[data-testid="stSidebar"] .stButton > button:hover,
+section[data-testid="stSidebar"] button[data-testid="baseButton-secondary"]:hover,
 div[data-testid="stSidebar"] .stButton > button:hover {
   background: #222 !important;
+  background-color: #222 !important;
   color: #f5f5f5 !important;
-  border-color: #444 !important;
+  border: none !important;
 }
-
-tant;
+/* Activo: gris redondeado (NO verde) */
+section[data-testid="stSidebar"] .stButton > button[kind="primary"],
+section[data-testid="stSidebar"] button[data-testid="baseButton-primary"],
+div[data-testid="stSidebar"] .stButton > button[kind="primary"],
+div[data-testid="stSidebar"] button[data-testid="baseButton-primary"] {
+  background: #2e2e2e !important;
+  background-color: #2e2e2e !important;
+  color: #fafafa !important;
+  border: none !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+/* Cerrar sesión: borde suave */
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] > div:last-child .stButton > button,
+div[data-testid="stSidebar"] [data-testid="stVerticalBlockBorderWrapper"]:last-child .stButton > button,
+section[data-testid="stSidebar"] div[data-testid="element-container"]:last-child .stButton > button {
+  border: 1px solid #333 !important;
   justify-content: center !important;
-  text-align: center !important;
-  margin-top: 0.45rem !important;
+  margin-top: 0.25rem !important;
 }
 
 div[data-baseweb="input"] > div,
@@ -524,49 +516,47 @@ st.sidebar.markdown(
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
 
 if st.session_state.rol == "comerciante":
-    # clave, icono Material, etiqueta  | grupos con None = divisor
-    menu_spec = [
-        ("Publicar carga", "inventory_2", "Publicar carga"),
-        ("Ofertas", "chat_bubble", "Ofertas"),
-        ("Mapa", "map", "Mapa"),
-        None,
-        ("Monitoreo", "sensors", "Monitoreo"),
-        ("Evidencia", "description", "Evidencia"),
+    # filas verticales: icono + texto (como Supabase)
+    groups = [
+        [
+            ("Publicar carga", "🏠  Publicar carga"),
+            ("Ofertas", "💬  Ofertas"),
+            ("Mapa", "🗺️  Mapa"),
+        ],
+        [
+            ("Monitoreo", "📡  Monitoreo"),
+            ("Evidencia", "📄  Evidencia"),
+        ],
     ]
 else:
-    menu_spec = [
-        ("Mi perfil", "badge", "Mi perfil"),
-        ("Cargas", "local_shipping", "Cargas"),
-        None,
-        ("En ruta", "near_me", "En ruta"),
-        ("Validar", "verified_user", "Validar"),
+    groups = [
+        [
+            ("Mi perfil", "🪪  Mi perfil"),
+            ("Cargas", "🚚  Cargas"),
+        ],
+        [
+            ("En ruta", "📍  En ruta"),
+            ("Validar", "🔒  Validar"),
+        ],
     ]
 
-menu_keys = [x[0] for x in menu_spec if x]
+menu_keys = [k for g in groups for k, _ in g]
 if "seccion" not in st.session_state or st.session_state.seccion not in menu_keys:
     st.session_state.seccion = menu_keys[0]
 
-# Sync desde URL (?s=...)
-qp = st.query_params.get("s")
-if isinstance(qp, list):
-    qp = qp[0] if qp else None
-if qp and qp in menu_keys and qp != st.session_state.seccion:
-    st.session_state.seccion = qp
-
-html = ['<div class="sb-nav">']
-for item in menu_spec:
-    if item is None:
-        html.append('<hr class="fr-side-divider"/>')
-        continue
-    key, icon, label = item
-    cls = "sb-item active" if st.session_state.seccion == key else "sb-item"
-    html.append(
-        f'<a class="{cls}" href="?s={quote(key)}">'
-        f'<span class="material-symbols-outlined">{icon}</span>'
-        f'{label}</a>'
-    )
-html.append("</div>")
-st.sidebar.markdown("\n".join(html), unsafe_allow_html=True)
+for gi, group in enumerate(groups):
+    if gi > 0:
+        st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
+    for key, label in group:
+        activo = st.session_state.seccion == key
+        if st.sidebar.button(
+            label,
+            key=f"nav_{st.session_state.rol}_{key}",
+            use_container_width=True,
+            type="primary" if activo else "secondary",
+        ):
+            st.session_state.seccion = key
+            st.rerun()
 
 seccion = st.session_state.seccion
 
@@ -575,7 +565,6 @@ if st.sidebar.button("Cerrar sesión", key="btn_logout", use_container_width=Tru
     for k in ("autenticado", "usuario", "rol", "nombre_sesion", "seccion"):
         if k in st.session_state:
             st.session_state[k] = False if k == "autenticado" else ""
-    st.query_params.clear()
     st.rerun()
 
 # =====================================================================
