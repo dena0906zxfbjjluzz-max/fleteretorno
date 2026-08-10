@@ -169,7 +169,14 @@ div[data-testid="stForm"] {
 .fr-badge-go { background: rgba(33,150,243,0.18); color: #64B5F6; }
 
 .fr-page-head { margin: 0 0 1.15rem; }
-.fr-page-head h1 { margin: 0 !important;section[data-testid="stSidebar"] {
+.fr-page-head h1 { margin: 0 !important; font-size: 2rem !important; }
+.fr-page-head p {
+  margin: 0.4rem 0 0;
+  color: #9AA69A;
+  font-size: 1.05rem;
+}
+
+section[data-testid="stSidebar"] {
   min-width: 270px !important;
   width: 270px !important;
 }
@@ -182,18 +189,26 @@ div[data-testid="stSidebar"] > div:first-child {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
 }
+/* Solo la cabecera del menú: mismo color claro que los campos */
+.fr-side-head {
+  background: #243028;
+  border: 1px solid rgba(242,245,240,0.14);
+  border-radius: 14px;
+  padding: 0.85rem 0.9rem;
+  margin: 0 0 0.75rem;
+}
 div[data-testid="stSidebar"] .fr-side-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-size: 1.3rem;
   color: #F2F5F0;
-  margin: 0.1rem 0 0.2rem;
+  margin: 0 0 0.25rem;
 }
 div[data-testid="stSidebar"] .fr-side-brand span { color: #C8F52A; }
 .fr-side-user {
-  color: #8a8a8a;
-  font-size: 0.85rem;
-  margin: 0 0 0.7rem;
+  color: #C8D0C6;
+  font-size: 0.88rem;
+  margin: 0;
   font-weight: 500;
 }
 .fr-side-divider {
@@ -572,13 +587,14 @@ if not st.session_state.autenticado:
 init_demo_store()
 
 # ---------- SHELL ----------
-st.sidebar.markdown(
-    '<p class="fr-side-brand">Flete<span>Retorno</span></p>',
-    unsafe_allow_html=True,
-)
 rol_label = "Comerciante" if st.session_state.rol == "comerciante" else "Chofer"
 st.sidebar.markdown(
-    f'<p class="fr-side-user">{st.session_state.nombre_sesion} · {rol_label}</p>',
+    f"""
+<div class="fr-side-head">
+  <p class="fr-side-brand">Flete<span>Retorno</span></p>
+  <p class="fr-side-user">{st.session_state.nombre_sesion} · {rol_label}</p>
+</div>
+    """,
     unsafe_allow_html=True,
 )
 st.sidebar.markdown('<hr class="fr-side-divider"/>', unsafe_allow_html=True)
